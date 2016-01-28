@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="ShowByCondition.widget.ShowByCondition" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>ShowByCondition</name>
+    <description>This widget will hide or show its parent, based on the result of a Microflow.</description>
+    <icon />
+
+    <properties>
+		<property key="microflowName" type="microflow" required="false">
+			<caption>Boolean Microflow</caption>
+			<category>Data source</category>
+			<description>Select the Microflow that determines whether the element should be shown.</description>
+			<returnType type="Boolean" />
+		</property>
+    </properties>
+</widget>
+
