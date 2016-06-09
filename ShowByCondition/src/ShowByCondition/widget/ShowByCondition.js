@@ -7,8 +7,8 @@
     @version   : 1
     @author    : Remco
     @date      : Fri, 22 Jan 2016 12:45:23 GMT
-    @copyright : 
-    @license   : 
+    @copyright :
+    @license   :
 
     Documentation
     ========================
@@ -29,6 +29,7 @@ define([
 
         // Parameters configured in the Modeler.
 		microflowName: "",
+    returnValue: "",
 
         // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
         constructor: function() {
@@ -40,22 +41,21 @@ define([
         // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
         postCreate: function() {
             logger.debug(this.id + ".postCreate");
-			this.domNode.parentElement.style.display = "none";
         },
-		
+
 		setParentDisplay : function(display) {
 			console.log(display);
-			if (display){
+			if (display == this.returnValue){
 				this.domNode.parentElement.style.display = "block";
-			}	
+			}
 		},
 
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function(obj, callback) {
 			logger.debug(this.id + ".update");
-			
+			this.domNode.parentElement.style.display = "none";
 			this.contextGUID = obj.getGuid();
-			
+
 			if (this.contextGUID) {
 				if (this.microflowName != '') {
 					mx.data.action({
@@ -72,7 +72,7 @@ define([
 						}
 					}, this);
 				}
-			}	
+			}
             callback();
         },
 
