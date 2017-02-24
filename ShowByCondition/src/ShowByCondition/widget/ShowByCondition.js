@@ -46,7 +46,7 @@ define([
         },
 
 		setParentDisplay : function(display) {
-			console.log(display);
+			this.domNode.parentElement.style.display = "none";
 			if (display == this.returnValue){
 				this.domNode.parentElement.style.display = "block";
 			}
@@ -63,21 +63,24 @@ define([
 		
 		// Rerender the interface.
         _updateRendering: function () {
-			if (this.microflowName != '') {
-				mx.data.action({
-					params: {
-						applyto: "selection",
-						actionname: this.microflowName,
-						guids: [this._contextObj.getGuid()]
-					},
-					callback: dojo.hitch(this, function (result) {
-						this.setParentDisplay(result);
-					}),
-					error: function(error) {
-						alert(error.description);
-					}
-				}, this);
+			if(this._contextObj) {
+				if (this.microflowName != '') {
+					mx.data.action({
+						params: {
+							applyto: "selection",
+							actionname: this.microflowName,
+							guids: [this._contextObj.getGuid()]
+						},
+						callback: dojo.hitch(this, function (result) {
+							this.setParentDisplay(result);
+						}),
+						error: function(error) {
+							alert(error.description);
+						}
+					}, this);
+				}
 			}
+			
         },
         // Reset subscriptions.
         _resetSubscriptions: function () {
