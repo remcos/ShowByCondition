@@ -30,7 +30,12 @@ define([
 
         // Parameters configured in the Modeler.
 		microflowName: "",
-    returnValue: "",
+		returnValue: "",
+		elementClassFalse: "",
+		elementClassTrue: "",
+		
+		// Internal variables
+		elementsToHide: [],
 
         // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
         constructor: function() {
@@ -42,13 +47,34 @@ define([
         // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
         postCreate: function() {
             logger.debug(this.id + ".postCreate");
-			this.domNode.parentElement.style.display = "none";
+			
+			if (this.elementClassFalse === "" && this.elementClassTrue === "") {
+				this.domNode.parentElement.style.display = "none";
+			}
         },
 
 		setParentDisplay : function(display) {
-			this.domNode.parentElement.style.display = "none";
-			if (display == this.returnValue){
-				this.domNode.parentElement.style.display = "block";
+			
+			if (this.elementClassFalse === "" && this.elementClassTrue === "") {
+				this.domNode.parentElement.style.display = "none";
+				if (display == this.returnValue){
+					this.domNode.parentElement.style.display = "block";
+				}
+			} else {
+				var elementsToShow = this.domNode.parentElement.getElementsByClassName("hiddenByWidget");
+				for(var i=0;i<elementsToShow.length; i++) {
+					elementsToShow[i].classList.remove("hiddenByWidget");
+				}
+				
+				if(display) {
+					this.elementsToHide = this.domNode.parentElement.getElementsByClassName(this.elementClassTrue);
+				} else {
+					this.elementsToHide = this.domNode.parentElement.getElementsByClassName(this.elementClassFalse);
+				}
+				
+				for(var i=0;i<this.elementsToHide.length; i++) {
+					this.elementsToHide[i].className += " hiddenByWidget";
+				}
 			}
 		},
 
