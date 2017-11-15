@@ -8,10 +8,12 @@ By default, Mendix allows to make elements conditionally visible based on a bool
 *	Show a field based on the status of a related object.
 
 ## Features and limitations
-*	Show an element based on a boolean value resulting from any Microflow.
+*	Show a parent element based on a boolean value resulting from any Microflow.
 *	Only works within elements that should be displayed as a 'block'.
+* Hide an element by classname, based on a boolean value resulting from any Microflow.
 
 ## Configuration
 1.	Create a microflow that has the Context Entity as input parameter.
 2.	End the microflow with a boolean value, which determines whether an element should be shown (true) or not (false).
-3.	Add the widget inside the element that you want to show or hide. This element can of course contain more sub-elements.
+3.a. Add the widget inside the element that you want to show or hide. This element can of course contain more sub-elements.
+3.b. Add the widget next to the element that you want to show or hide. Configure this element's class in the widget, to hide based on the microflow outcome.
