@@ -31,6 +31,7 @@ define([
 
         // Parameters configured in the Modeler.
 		microflowName: "",
+		nanoflowName: "",
 		returnValue: "",
 		elementClassFalse: "",
 		elementClassTrue: "",
@@ -102,9 +103,25 @@ define([
 							this.setParentDisplay(result);
 						}),
 						error: function(error) {
-							alert(error.description);
+							console.error(error.description);
 						}
 					}, this);
+				}
+				else if (this.nanoflowName != '') {
+					mx.data.callNanoflow({
+						nanoflow: this.nanoflowName,
+						origin: this.mxform,
+    					context: this.mxcontext,
+						callback: dojo.hitch(this, function (result) {
+							this.setParentDisplay(result);
+						}),
+						error: function(error) {
+							console.error(error.description);
+						}
+					}, this);
+				}
+				else {
+					console.error("Neither a nanoflow or a microflow was specified for show by condition widget.");
 				}
 			}
 			
@@ -114,9 +131,9 @@ define([
             var _objectHandle = null;
             // Release handles on previous object, if any.
             if (this._handles) {
-                this._handles.forEach(function (handle, i) {
-                    mx.data.unsubscribe(handle);
-                });
+                this._handles.forEach(lang.hitch(this, function (handle, i) {
+	                this.unsubscribe(handle);
+                }));
                 this._handles = [];
             }
             // When a mendix object exists create subscribtions. 
