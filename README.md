@@ -17,3 +17,9 @@ By default, Mendix allows to make elements conditionally visible based on a bool
 2.	End the microflow with a boolean value, which determines whether an element should be shown (true) or not (false).
 3.a. Add the widget inside the element that you want to show or hide. This element can of course contain more sub-elements.
 3.b. Add the widget next to the element that you want to show or hide. Configure this element's class in the widget, to hide based on the microflow outcome.
+
+In the latter case, the class 'hiddenByWidget' will be added to the widget. The CSS file needs to specify the styling to hide elements with the hiddenByWidget class. This can be done with the following code:
+
+.hiddenByWidget {
+  display: none;
+ }
